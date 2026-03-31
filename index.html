@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Feedback Registration</title>
+  <meta name="description" content="Student Feedback Registration Form for collecting student feedback and information." />
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Internal CSS -->
+  <style>
+    /* =============================
+       INTERNAL CSS — Component-level
+       overrides and accent variables
+       ============================= */
+    :root {
+      --brand-primary: #dc2626;
+      --brand-secondary: #b91c1c;
+      --brand-accent: #fca5a5;
+      --brand-glow: rgba(220, 38, 38, 0.35);
+      --danger: #dc2626;
+      --success: #16a34a;
+      --surface: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Logo text gradient — internal only */
+    .logo-title span {
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    /* Floating label animation */
+    .field-group {
+      position: relative;
+    }
+    .field-group label {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      background: transparent;
+      padding: 0 4px;
+    }
+    .field-group input:focus ~ label,
+    .field-group input:not(:placeholder-shown) ~ label {
+      top: 0;
+      font-size: 0.72rem;
+      color: var(--brand-accent);
+      background: #1a1035;
+      border-radius: 4px;
+    }
+    .field-group select ~ label {
+      top: 0;
+      font-size: 0.72rem;
+      color: var(--brand-accent);
+      background: #1a1035;
+      border-radius: 4px;
+    }
+
+    /* Password strength bar — internal */
+    #strength-bar-wrap {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    #strength-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: 2px;
+      transition: width 0.35s ease, background 0.35s ease;
+    }
+
+    /* Submit ripple effect */
+    .btn-submit::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .btn-submit:active::after {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background blobs -->
+  <div class="bg-blob blob-1" aria-hidden="true"></div>
+  <div class="bg-blob blob-2" aria-hidden="true"></div>
+  <div class="bg-blob blob-3" aria-hidden="true"></div>
+
+  <main class="page-center">
+    <div class="card">
+
+      <!-- Header -->
+      <header class="card-header">
+        <div class="logo-title">
+          <h1>Student <span>Feedback</span> Registration</h1>
+          <p class="subtitle">Share Your Valuable Feedback — 2026</p>
+        </div>
+        <div class="step-badge">Feedback Form</div>
+      </header>
+
+      <!-- Form -->
+      <form id="registrationForm" autocomplete="off" novalidate>
+
+        <!-- Student Name -->
+        <div class="form-group" id="group-name">
+          <div class="field-group">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder=" "
+              autocomplete="off"
+              aria-required="true"
+              aria-describedby="name-error"
+            />
+            <label for="name">Student Name *</label>
+            <span class="field-icon">👤</span>
+          </div>
+          <span class="error-msg" id="name-error" role="alert"></span>
+        </div>
+
+        <!-- Email ID -->
+        <div class="form-group" id="group-email">
+          <div class="field-group">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder=" "
+              autocomplete="off"
+              aria-required="true"
+              aria-describedby="email-error"
+            />
+            <label for="email">Email ID *</label>
+            <span class="field-icon">✉️</span>
+          </div>
+          <span class="error-msg" id="email-error" role="alert"></span>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="form-group" id="group-mobile">
+          <div class="field-group">
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              placeholder=" "
+              autocomplete="off"
+              aria-required="true"
+              aria-describedby="mobile-error"
+            />
+            <label for="mobile">Mobile Number *</label>
+            <span class="field-icon">📱</span>
+          </div>
+          <span class="error-msg" id="mobile-error" role="alert"></span>
+        </div>
+
+        <!-- Department -->
+        <div class="form-group" id="group-department">
+          <div class="field-group select-wrap">
+            <select id="department" name="department" aria-required="true" aria-describedby="department-error">
+              <option value="" disabled selected>-- Select your Department --</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Business Administration">Business Administration</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Arts">Arts</option>
+              <option value="Science">Science</option>
+              <option value="Other">Other</option>
+            </select>
+            <label for="department">Department *</label>
+          </div>
+          <span class="error-msg" id="department-error" role="alert"></span>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group" id="group-gender">
+          <p class="field-label">Gender *</p>
+          <div class="gender-options">
+            <label class="checkbox-card" for="male">
+              <input type="radio" id="male" name="gender" value="Male" />
+              <span class="checkmark"></span>
+              <span class="option-icon">♂️</span>
+              <span>Male</span>
+            </label>
+            <label class="checkbox-card" for="female">
+              <input type="radio" id="female" name="gender" value="Female" />
+              <span class="checkmark"></span>
+              <span class="option-icon">♀️</span>
+              <span>Female</span>
+            </label>
+            <label class="checkbox-card" for="other">
+              <input type="radio" id="other" name="gender" value="Other" />
+              <span class="checkmark"></span>
+              <span class="option-icon">⚧</span>
+              <span>Other</span>
+            </label>
+            <label class="checkbox-card" for="prefer-not">
+              <input type="radio" id="prefer-not" name="gender" value="Prefer not to say" />
+              <span class="checkmark"></span>
+              <span class="option-icon">🤐</span>
+              <span>Prefer not to say</span>
+            </label>
+          </div>
+          <span class="error-msg" id="gender-error" role="alert"></span>
+        </div>
+
+        <!-- Feedback Comments -->
+        <div class="form-group" id="group-comments">
+          <div class="field-group">
+            <textarea
+              id="comments"
+              name="comments"
+              placeholder=" "
+              rows="4"
+              autocomplete="off"
+              aria-required="true"
+              aria-describedby="comments-error"
+            ></textarea>
+            <label for="comments">Feedback Comments *</label>
+            <span class="field-icon">💬</span>
+          </div>
+          <span class="error-msg" id="comments-error" role="alert"></span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="btn-text">Submit Feedback</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          <button type="button" class="btn-reset" id="resetBtn" onclick="resetForm()">
+            <span class="btn-text">Reset</span>
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Success Message -->
+      <div id="successMsg" class="success-msg hidden" role="status">
+        <div class="success-icon">✅</div>
+        <h2>Feedback Submitted Successfully!</h2>
+        <p>Thank you for your valuable feedback. Your input helps us improve our services.</p>
+        <button onclick="resetForm()" class="btn-reset">Submit Another Feedback</button>
+      </div>
+
+    </div><!-- .card -->
+  </main>
+
+  <!-- External JS -->
+  <script src="validation.js"></script>
+</body>
+</html>
